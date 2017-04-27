@@ -1,49 +1,70 @@
 package webtest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
-public class test {
-      public static void main(String[] args) {
-      List<String> list = new ArrayList<String>();
-      ArrayList<String> str = new ArrayList<String>();
-          list.add("1,2,3,4,5");
-          list.add("a,b,c,d,e");
-          list.add("q,w,e,r,t");
-          list.add("6,7,8,9,10");
-          for(int j=0 ; j<list.size(); j++){
-        	  System.out.println(list.get(j));
-          }
-          System.out.println(list);
-          str.add("1,2,3,4,5");
-          str.add("a,b,c,d,e");
-          System.out.println("========");
-          System.out.println(str);
-          System.out.println(str.get(0));
-          System.out.println("========");
-          
-          
-          String[] array1 = new String[3];
-          array1[0] = "asList Test1";
-          array1[1] = "asList Test2";
-          array1[2] = "asList Test3";
-          ArrayList<String> arrayList1 = new ArrayList<>(Arrays.asList(array1));
-          System.out.println(arrayList1);
-          for(int i=0 ; i<arrayList1.size(); i++){
-          System.out.println(arrayList1.get(i));
-          }
-          System.out.println("========");
-
-          
-          ArrayList<String> arrayList2 = new ArrayList<>();
-          arrayList2.add("toArray Test1");
-          arrayList2.add("toArray Test2");
-          arrayList2.add("toArray Test3");
-          String[] array2 = arrayList2.toArray(new String[arrayList2.size()]);
-          for(int k=0 ; k<arrayList2.size(); k++){
-              System.out.println(array2[k]);
-              }
-
-      }
-}
+public class test{
+	int com = 0;
+	public int game(int result){
+		Scanner in =  new Scanner(System.in);
+		Random rand = new Random();
+		rand.setSeed(System.currentTimeMillis());
+		com = rand.nextInt(100)+1;
+		
+		if(com == result){
+			Random rand_new = new Random();
+			rand_new.setSeed(System.currentTimeMillis());
+			com = rand_new.nextInt(100)+1;
+		}
+		System.out.println(result+"한번돌리고난후");
+		System.out.println(com+"커ㅏㅁ!!!!!!!!!!!!!!");
+		while(true){
+			int count = 0;
+			System.out.println("업다운 게임");
+			while(count<=6){
+				if(count == 0){
+					System.out.println("수를 입력해주세요(현재 남은 횟수 : "+(7-count)+"번)");
+				}else{
+					System.out.println("다시 수를 입력해주세요(현재 남은 횟수 : "+(7-count)+"번)");	
+				}
+				int user = in.nextInt();
+				if(user>com){
+					System.out.println("낮습니다.");
+					}else if(user==com){
+						System.out.println("성공.");
+						System.out.println("재시작 : 1 종료 : 0 ");
+						int restart = in.nextInt();
+						if(restart==1){
+							game(com);
+							break;
+						}else if(restart==0){
+							System.out.println("종료.");
+							System.exit(0);
+							}else{
+								System.out.println("다시 입력해주세요.");
+							}
+						}else if(user<com){
+						System.out.println("높습니다.");
+					}
+				count++;
+				}
+			if(count >= 7){
+				System.out.println("실패.");
+				System.out.println("재시작 : 1 종료 : 0 ");
+				int restart = in.nextInt();
+				if(restart==0){
+					System.exit(0);
+				}else if(restart==1){
+					game(com);
+					}else{
+						System.out.println("다시 입력해주세요");
+					}
+				}
+			}
+		}
+		public static void main(String args[]){
+			test a = new test();
+			System.out.println("게임시작");
+			a.game(0);
+		}
+	}
